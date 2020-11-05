@@ -13,4 +13,5 @@ public interface ApplicationMenu {
     default Object handleUserInput(Object o) {
         return null;
     }
+    //todo one more abstract method
 }

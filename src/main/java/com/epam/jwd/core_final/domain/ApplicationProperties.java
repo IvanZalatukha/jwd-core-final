@@ -16,4 +16,12 @@ package com.epam.jwd.core_final.domain;
  */
 public class ApplicationProperties {
     //todo
+    private String inputRootDir;
+    private String outputRootDir;
+    private String crewFileName;
+    private String missionsFileName;
+    private String spaceshipsFileName;
+    private Integer fileRefreshRate;
+    private String dateTimeFormat;
+
 }

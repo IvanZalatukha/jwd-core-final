@@ -9,4 +9,48 @@ package com.epam.jwd.core_final.domain;
  */
 public class CrewMember extends AbstractBaseEntity {
     // todo
+    private Role role;
+    private Rank rank;
+    private Boolean isReadyForNextMissions = true;
+
+
+    public CrewMember(Role role, String name, Rank rank) {
+        super(name);
+        this.role = role;
+        this.rank = rank;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    public Boolean getReadyForNextMissions() {
+        return isReadyForNextMissions;
+    }
+
+    public void setReadyForNextMissions(Boolean readyForNextMissions) {
+        isReadyForNextMissions = readyForNextMissions;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
