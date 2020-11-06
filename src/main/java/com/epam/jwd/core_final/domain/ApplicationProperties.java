@@ -21,34 +21,35 @@ import java.util.Properties;
 public class ApplicationProperties {
     //todo
 
-    private final String inputRootDir = PropertyReaderUtil.getProperties().getProperty("inputRootDir");
-    private final String outputRootDir = PropertyReaderUtil.getProperties().getProperty("outputRootDir");
-    private final String crewFileName = PropertyReaderUtil.getProperties().getProperty("crewFileName");
-    private final String missionsFileName = PropertyReaderUtil.getProperties().getProperty("missionsFileName");
-    private final Integer fileRefreshRate = Integer.parseInt(PropertyReaderUtil.getProperties().getProperty("fileRefreshRate"));
-    private final String dateTimeFormat = PropertyReaderUtil.getProperties().getProperty("dateTimeFormat");
+    private final static String inputRootDir = PropertyReaderUtil.getProperties().getProperty("inputRootDir");
+    private final static String outputRootDir = PropertyReaderUtil.getProperties().getProperty("outputRootDir");
+    private final static String crewFileName = PropertyReaderUtil.getProperties().getProperty("crewFileName");
+    private final static String missionsFileName = PropertyReaderUtil.getProperties().getProperty("missionsFileName");
+    private final static String spaceshipsFileName = PropertyReaderUtil.getProperties().getProperty("spaceshipsFileName");
+    private final static Integer fileRefreshRate = Integer.parseInt(PropertyReaderUtil.getProperties().getProperty("fileRefreshRate"));
+    private final static String dateTimeFormat = PropertyReaderUtil.getProperties().getProperty("dateTimeFormat");
 
-    public String getInputRootDir() {
+    public static String getInputRootDir() {
         return inputRootDir;
     }
 
-    public String getOutputRootDir() {
+    public static String getOutputRootDir() {
         return outputRootDir;
     }
 
-    public String getCrewFileName() {
+    public static String getCrewFileName() {
         return crewFileName;
     }
 
-    public String getMissionsFileName() {
+    public static String getMissionsFileName() {
         return missionsFileName;
     }
 
-    public Integer getFileRefreshRate() {
+    public static Integer getFileRefreshRate() {
         return fileRefreshRate;
     }
 
-    public String getDateTimeFormat() {
+    public static String getDateTimeFormat() {
         return dateTimeFormat;
     }
 }

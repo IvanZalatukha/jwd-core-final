@@ -16,5 +16,5 @@ public interface MissionService {
 
     FlightMission updateSpaceshipDetails(FlightMission flightMission);
 
-    FlightMission createMission(FlightMission flightMission);
+    FlightMission createMission(String flightMissionString);
 }

@@ -11,14 +11,14 @@ public class VerticalInputStrategy implements InputStrategy {
         try {
             FileInputStream inputStream = new FileInputStream(filePath);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            List<String> spaceshipsStringList = new ArrayList<>();
+            List<String> verticalStringList = new ArrayList<>();
             String line = reader.readLine();
             while (line != null) {
-                spaceshipsStringList.add(line);
+                verticalStringList.add(line);
                 line = reader.readLine();
             }
-            spaceshipsStringList.removeIf(s -> s.startsWith("#"));
-            return spaceshipsStringList;
+            verticalStringList.removeIf(s -> s.startsWith("#"));
+            return verticalStringList;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

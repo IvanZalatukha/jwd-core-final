@@ -1,5 +1,7 @@
 package com.epam.jwd.core_final.domain;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Expected fields:
  * <p>
@@ -11,13 +13,15 @@ public class CrewMember extends AbstractBaseEntity {
     // todo
     private Role role;
     private Rank rank;
-    private Boolean isReadyForNextMissions = true;
+    private Boolean isReadyForNextMissions;
 
 
     public CrewMember(Role role, String name, Rank rank) {
         super(name);
         this.role = role;
         this.rank = rank;
+        isReadyForNextMissions = true;
+
     }
 
     public Role getRole() {
@@ -43,6 +47,7 @@ public class CrewMember extends AbstractBaseEntity {
     public void setReadyForNextMissions(Boolean readyForNextMissions) {
         isReadyForNextMissions = readyForNextMissions;
     }
+
 
     @Override
     public String getName() {

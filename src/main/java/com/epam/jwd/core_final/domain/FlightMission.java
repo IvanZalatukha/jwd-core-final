@@ -1,6 +1,7 @@
 package com.epam.jwd.core_final.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -12,41 +13,36 @@ import java.util.List;
  * distance {@link Long} - missions distance
  * assignedSpaceShift {@link Spaceship} - not defined by default
  * assignedCrew {@link java.util.List<CrewMember>} - list of missions members based on ship capacity - not defined by default
- * missionResult {@link MissionResult}
+ * missionResult {@link MissionStatus}
  */
 public class FlightMission extends AbstractBaseEntity {
     // todo
-    LocalDate startDate;
-    LocalDate endDate;
+    LocalDateTime startDate;
+    LocalDateTime endDate;
     Long distance;
     Spaceship assignedSpaceShift;
     List<CrewMember> assignedCrew;
-    MissionResult missionResult;
+    MissionStatus missionResult;
 
-
-    public FlightMission(String name, LocalDate startDate, LocalDate endDate, Long distance,
-                         Spaceship assignedSpaceShift, List<CrewMember> assignedCrew) {
+    public FlightMission(String name, Long distance) {
         super(name);
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.distance = distance;
-        this.assignedSpaceShift = assignedSpaceShift;
-        this.assignedCrew = assignedCrew;
     }
 
-    public LocalDate getStartDate() {
+
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -74,11 +70,11 @@ public class FlightMission extends AbstractBaseEntity {
         this.assignedCrew = assignedCrew;
     }
 
-    public MissionResult getMissionResult() {
+    public MissionStatus getMissionResult() {
         return missionResult;
     }
 
-    public void setMissionResult(MissionResult missionResult) {
+    public void setMissionResult(MissionStatus missionResult) {
         this.missionResult = missionResult;
     }
 }
