@@ -41,7 +41,7 @@ public class NassaContext implements ApplicationContext {
             return (Collection<T>) crewMembers;
         } else if (tClass.getName().equals(Spaceship.class.getName())) {
             return (Collection<T>) spaceships;
-        }else if (tClass.getName().equals(Spaceship.class.getName())) {
+        }else if (tClass.getName().equals(FlightMission.class.getName())) {
             return (Collection<T>) flightMissions;
         }
         return null;
@@ -64,7 +64,7 @@ public class NassaContext implements ApplicationContext {
 
     }
 
-    public void populateCollections() throws  IOException {
+    private void populateCollections() throws  IOException {
         ContextInputStrategy contextInputStrategy = new ContextInputStrategy();
         contextInputStrategy.setInputStrategy(new HorizontalInputStrategy());
 

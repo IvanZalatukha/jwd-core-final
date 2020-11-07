@@ -20,9 +20,9 @@ public class FlightMission extends AbstractBaseEntity {
     LocalDateTime startDate;
     LocalDateTime endDate;
     Long distance;
-    Spaceship assignedSpaceShift;
+    Spaceship assignedSpaceShip;
     List<CrewMember> assignedCrew;
-    MissionStatus missionResult;
+    MissionStatus missionStatus;
 
     public FlightMission(String name, Long distance) {
         super(name);
@@ -55,11 +55,11 @@ public class FlightMission extends AbstractBaseEntity {
     }
 
     public Spaceship getAssignedSpaceShift() {
-        return assignedSpaceShift;
+        return assignedSpaceShip;
     }
 
     public void setAssignedSpaceShift(Spaceship assignedSpaceShift) {
-        this.assignedSpaceShift = assignedSpaceShift;
+        this.assignedSpaceShip = assignedSpaceShift;
     }
 
     public List<CrewMember> getAssignedCrew() {
@@ -71,10 +71,16 @@ public class FlightMission extends AbstractBaseEntity {
     }
 
     public MissionStatus getMissionResult() {
-        return missionResult;
+        return missionStatus;
     }
 
     public void setMissionResult(MissionStatus missionResult) {
-        this.missionResult = missionResult;
+        this.missionStatus = missionResult;
+    }
+
+    @Override
+    public String toString() {
+        return id +". " + name +
+                ", distance = " + distance;
     }
 }
