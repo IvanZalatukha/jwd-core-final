@@ -8,7 +8,6 @@ import com.epam.jwd.core_final.domain.Spaceship;
 import com.epam.jwd.core_final.factory.impl.SpaceshipFactory;
 import com.epam.jwd.core_final.service.SpaceshipService;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;

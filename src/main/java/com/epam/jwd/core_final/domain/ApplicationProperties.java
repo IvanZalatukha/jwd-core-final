@@ -2,8 +2,6 @@ package com.epam.jwd.core_final.domain;
 
 import com.epam.jwd.core_final.util.PropertyReaderUtil;
 
-import java.util.Properties;
-
 /**
  * This class should be IMMUTABLE!
  * <p>

@@ -17,13 +17,14 @@ import java.util.stream.Collectors;
 public interface ApplicationMenu {
 
     ApplicationContext getApplicationContext();
+
     Scanner scanner = new Scanner(System.in);
 
     default Object printAvailableOptions() {
         return null;
     }
 
-    default Object handleUserInput(Object o) {
+    default void handleUserInput(Object o) {
         if (o.equals(1)) {
             NassaContext.getInstance()
                     .retrieveBaseEntityList(FlightMission.class)
@@ -36,7 +37,6 @@ public interface ApplicationMenu {
         } else if (o.equals(2)) {
             createYourOwnMission();
         }
-        return null;
     }
 
     private FlightMission chooseMission(int s) {
@@ -95,7 +95,7 @@ public interface ApplicationMenu {
 
     }
 
-    private List<CrewMember> chooseCrewOption(Spaceship spaceship, FlightMission flightMission) {
+    private List<CrewMember> chooseCrewOption(Spaceship spaceship) {
         Collection<CrewMember> crewMemberCollection = NassaContext.getInstance().retrieveBaseEntityList(CrewMember.class);
         List<CrewMember> list = new ArrayList<>();
         for (Map.Entry<Role, Short> c : spaceship.getCrew().entrySet()) {
@@ -123,7 +123,7 @@ public interface ApplicationMenu {
                 }
                 switch (selectedNumber) {
                     case 2:
-                        flightMission.setAssignedCrew(chooseCrewOption(chooseSpaceshipOption(flightMission), flightMission));
+                        flightMission.setAssignedCrew(chooseCrewOption(chooseSpaceshipOption(flightMission)));
                         chooseMissionOptionThree(flightMission);
                         break;
                     case 3:
@@ -173,7 +173,7 @@ public interface ApplicationMenu {
         while (true) {
             System.out.println("You have successfully sent a mission to " + flightMission.getName());
             System.out.println("Mission end date set for " + endMissionString);
-            System.out.println("The mission will reach " + flightMission.getName() + " in " +
+            System.out.println("The mission will arrive on the planet " + flightMission.getName() + " in " +
                     (10 * endMission.getSecond() - LocalDateTime.now().getSecond()) + " seconds");
             System.out.println("1. Upload mission information to file");
             System.out.println("0. Return to the previous menu");
@@ -192,7 +192,8 @@ public interface ApplicationMenu {
             }
         }
     }
-    private void uploadMissionInformation (FlightMission flightMission) throws IOException {
+
+    private void uploadMissionInformation(FlightMission flightMission) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(new File("src/main/resources/output"), flightMission);
         LocalDateTime endMission = LocalDateTime.now().plusMinutes(2);
@@ -220,6 +221,7 @@ public interface ApplicationMenu {
         Application.afterContextInit(applicationContextSupplier::get);
         System.exit(0);
     }
+
     private void createYourOwnMission() {
         while (true) {
             System.out.println("1. Enter the name of the planet");
@@ -233,11 +235,11 @@ public interface ApplicationMenu {
                 switch (selectedNumber) {
                     case 1:
                         System.out.println("Enter the name of the planet");
-                        FlightMission flightMission = new FlightMission(scanner.nextLine(),null);
+                        FlightMission flightMission = new FlightMission(scanner.nextLine(), null);
                         enterTheDistance(flightMission);
                         break;
                     case 2:
-                        System.out.println("Please enter the distance first");
+                        System.out.println("Please enter the planet name first");
                         break;
                     default:
                         System.out.println("\n" + "There is no such option, please choose from the offered options:" + "\n");
@@ -247,7 +249,8 @@ public interface ApplicationMenu {
             }
         }
     }
-    private void enterTheDistance(FlightMission flightMission){
+
+    private void enterTheDistance(FlightMission flightMission) {
         while (true) {
             System.out.println("You go to the planet " + flightMission.getName());
             System.out.println("2. Enter distance");
@@ -270,9 +273,6 @@ public interface ApplicationMenu {
         }
 
     }
-
-
-
 
 
 }

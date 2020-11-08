@@ -31,9 +31,9 @@ public class NassaContext implements ApplicationContext {
     }
 
     // no getters/setters for them
-    private Collection<CrewMember> crewMembers = new ArrayList<>();
-    private Collection<Spaceship> spaceships = new ArrayList<>();
-    private Collection<FlightMission> flightMissions = new ArrayList<>();
+    private final Collection<CrewMember> crewMembers = new ArrayList<>();
+    private final Collection<Spaceship> spaceships = new ArrayList<>();
+    private final Collection<FlightMission> flightMissions = new ArrayList<>();
 
     @Override
     public <T extends BaseEntity> Collection<T> retrieveBaseEntityList(Class<T> tClass) {
