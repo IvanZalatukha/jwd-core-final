@@ -52,4 +52,8 @@ public class ApplicationProperties {
     public static String getDateTimeFormat() {
         return dateTimeFormat;
     }
+
+    public static String getSpaceshipsFileName() {
+        return spaceshipsFileName;
+    }
 }

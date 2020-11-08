@@ -70,11 +70,11 @@ public class FlightMission extends AbstractBaseEntity {
         this.assignedCrew = assignedCrew;
     }
 
-    public MissionStatus getMissionResult() {
+    public MissionStatus getMissionStatus() {
         return missionStatus;
     }
 
-    public void setMissionResult(MissionStatus missionResult) {
+    public void setMissionStatus(MissionStatus missionResult) {
         this.missionStatus = missionResult;
     }
 

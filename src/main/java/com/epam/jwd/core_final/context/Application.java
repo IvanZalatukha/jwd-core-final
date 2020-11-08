@@ -21,7 +21,7 @@ public interface Application {
 
     }
 
-    private static void afterContextInit(ApplicationMenu applicationMenu) {
+    static void afterContextInit(ApplicationMenu applicationMenu) {
         System.out.println("Hello, select an option:" + "\n");
         Scanner scanner = new Scanner(System.in);
         while (true) {
