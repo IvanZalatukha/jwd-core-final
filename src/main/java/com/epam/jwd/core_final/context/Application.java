@@ -1,6 +1,7 @@
 package com.epam.jwd.core_final.context;
 
 import com.epam.jwd.core_final.context.impl.NassaContext;
+import com.epam.jwd.core_final.domain.ApplicationProperties;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -18,6 +19,7 @@ public interface Application {
     }
 
     static void afterContextInit(ApplicationMenu applicationMenu) {
+        timer();
         System.out.println("\n" + "Hello, select an option:" + "\n");
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -43,5 +45,16 @@ public interface Application {
                 System.out.println("Please enter a number from the ones below:" + "\n");
             }
         }
+    }
+
+    private static void timer() {
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                NassaContext.getInstance().init();
+            }
+        };
+        timer.schedule(timerTask, ApplicationProperties.getFileRefreshRate());
     }
 }
