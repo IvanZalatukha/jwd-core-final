@@ -19,7 +19,7 @@ public interface Application {
     }
 
     static void afterContextInit(ApplicationMenu applicationMenu) {
-        timer();
+//        timer();
         System.out.println("\n" + "Hello, select an option:" + "\n");
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -47,14 +47,14 @@ public interface Application {
         }
     }
 
-    private static void timer() {
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                NassaContext.getInstance().init();
-            }
-        };
-        timer.schedule(timerTask, ApplicationProperties.getFileRefreshRate());
-    }
+//    private static void timer() {
+//        Timer timer = new Timer();
+//        TimerTask timerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                NassaContext.getInstance().init();
+//            }
+//        };
+//        timer.schedule(timerTask, ApplicationProperties.getFileRefreshRate());
+//    }
 }
