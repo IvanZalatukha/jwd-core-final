@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class SpaceshipFactory implements EntityFactory<Spaceship> {
     private static SpaceshipFactory instance;
-    Long id = 0L;
+    private static Long id = 0L;
 
     private SpaceshipFactory() {
     }
@@ -38,4 +38,3 @@ public class SpaceshipFactory implements EntityFactory<Spaceship> {
         return newSpaceship;
     }
 }
-//Challenger;201117;{1:5,2:9,3:3,4:3}

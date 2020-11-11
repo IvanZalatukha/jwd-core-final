@@ -9,9 +9,9 @@ import java.util.Map;
  */
 public class Spaceship extends AbstractBaseEntity {
     //todo
-    Map<Role, Short> crew;
-    Long flightDistance;
-    Boolean isReadyForNextMissions;
+    private Map<Role, Short> crew;
+    private Long flightDistance;
+    private Boolean isReadyForNextMissions;
 
     public Spaceship(String name, Map<Role, Short> crew, Long flightDistance) {
         super(name);

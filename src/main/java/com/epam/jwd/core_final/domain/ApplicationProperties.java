@@ -18,7 +18,6 @@ import com.epam.jwd.core_final.util.PropertyReaderUtil;
  */
 public class ApplicationProperties {
     //todo
-
     private final static String inputRootDir = PropertyReaderUtil.getProperties().getProperty("inputRootDir");
     private final static String outputRootDir = PropertyReaderUtil.getProperties().getProperty("outputRootDir");
     private final static String crewFileName = PropertyReaderUtil.getProperties().getProperty("crewFileName");

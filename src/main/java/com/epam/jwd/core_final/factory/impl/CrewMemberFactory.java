@@ -8,8 +8,8 @@ import com.epam.jwd.core_final.factory.EntityFactory;
 // do the same for other entities
 public class CrewMemberFactory implements EntityFactory<CrewMember> {
 
+    private static Long id = 0L;
     private static CrewMemberFactory instance;
-    Long id = 0L;
 
     private CrewMemberFactory() {
     }

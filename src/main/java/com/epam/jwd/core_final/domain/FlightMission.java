@@ -17,12 +17,12 @@ import java.util.List;
  */
 public class FlightMission extends AbstractBaseEntity {
     // todo
-    LocalDateTime startDate;
-    LocalDateTime endDate;
-    Long distance;
-    Spaceship assignedSpaceShip;
-    List<CrewMember> assignedCrew;
-    MissionStatus missionStatus;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private Long distance;
+    private Spaceship assignedSpaceShip;
+    private List<CrewMember> assignedCrew;
+    private MissionStatus missionStatus;
 
     public FlightMission(String name, Long distance) {
         super(name);
@@ -80,7 +80,7 @@ public class FlightMission extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return id +". " + name +
+        return id + ". " + name +
                 ", distance = " + distance;
     }
 }

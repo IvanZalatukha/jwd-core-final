@@ -60,7 +60,7 @@ public class CrewMember extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return  name +
+        return name +
                 "{" +
                 "role=" + role +
                 ", rank=" + rank +

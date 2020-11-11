@@ -1,17 +1,13 @@
 package com.epam.jwd.core_final.context;
 
 import com.epam.jwd.core_final.context.impl.NassaContext;
-import com.epam.jwd.core_final.domain.ApplicationProperties;
-import com.epam.jwd.core_final.domain.CrewMember;
-import com.epam.jwd.core_final.exception.InvalidStateException;
 
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.function.Supplier;
 
 public interface Application {
 
-    static void start() throws InvalidStateException {
+    static void start() {
 
         final Supplier<ApplicationContext> applicationContextSupplier = NassaContext::getInstance; // todo
         final NassaContext nassaContext = NassaContext.getInstance();
@@ -22,7 +18,7 @@ public interface Application {
     }
 
     static void afterContextInit(ApplicationMenu applicationMenu) {
-        System.out.println("Hello, select an option:" + "\n");
+        System.out.println("\n" + "Hello, select an option:" + "\n");
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("1. Select mission");
@@ -30,7 +26,7 @@ public interface Application {
             System.out.println("0. Exit");
             try {
                 int s = Integer.parseInt(scanner.nextLine());
-                if (s == 0){
+                if (s == 0) {
                     break;
                 }
                 switch (s) {
@@ -48,6 +44,4 @@ public interface Application {
             }
         }
     }
-
-
 }

@@ -7,8 +7,8 @@ import com.epam.jwd.core_final.domain.BaseEntity;
  */
 public abstract class Criteria<T extends BaseEntity> {
 
-    private String name;
-    private Integer id;
+    private final String name;
+    private final Integer id;
 
     protected Criteria(Builder<?> builder) {
         this.name = builder.name;

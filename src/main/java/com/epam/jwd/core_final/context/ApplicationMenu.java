@@ -2,6 +2,8 @@ package com.epam.jwd.core_final.context;
 
 import com.epam.jwd.core_final.context.impl.NassaContext;
 import com.epam.jwd.core_final.domain.*;
+import com.epam.jwd.core_final.exception.InvalidStateException;
+import com.epam.jwd.core_final.service.impl.CrewServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -78,20 +80,20 @@ public interface ApplicationMenu {
                     default:
                         System.out.println("\n" + "There is no such option, please choose from the offered options:" + "\n");
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | InvalidStateException e) {
                 System.out.println("Please enter a number from the ones below:" + "\n");
             }
 
         }
     }
 
-    private Spaceship chooseSpaceshipOption(FlightMission flightMission) {
+    private Spaceship chooseSpaceshipOption(FlightMission flightMission) throws InvalidStateException {
         Collection<Spaceship> list = NassaContext.getInstance().retrieveBaseEntityList(Spaceship.class);
         return list
                 .stream()
                 .filter(s -> s.getFlightDistance() > flightMission.getDistance())
-                .findAny()
-                .get();
+                .filter(Spaceship::getReadyForNextMissions)
+                .findAny().orElseThrow(() -> new InvalidStateException("There are no ships with this flight range, select a distance up to 940,000"));
 
     }
 
@@ -101,15 +103,18 @@ public interface ApplicationMenu {
         for (Map.Entry<Role, Short> c : spaceship.getCrew().entrySet()) {
             List<CrewMember> sortedList = crewMemberCollection.stream().filter(s -> s.getRole() == c.getKey()).collect(Collectors.toList());
             for (int i = 0; i < c.getValue(); i++) {
-                sortedList.get(i).setReadyForNextMissions(false);
-                list.add(sortedList.get(i));
+                if (sortedList.get(i).getReadyForNextMissions()) {
+                    CrewServiceImpl.getInstance().updateCrewMemberDetails(sortedList.get(i));
+                    list.add(sortedList.get(i));
+                }
             }
         }
         return list;
     }
 
-    private void chooseMissionOptionTwo(FlightMission flightMission) {
+    private void chooseMissionOptionTwo(FlightMission flightMission) throws InvalidStateException {
         flightMission.setAssignedSpaceShift(chooseSpaceshipOption(flightMission));
+        chooseSpaceshipOption(flightMission).setReadyForNextMissions(false);
         while (true) {
             System.out.println("Your spaceship is: " + chooseSpaceshipOption(flightMission));
             System.out.println("2. Assign crew");
@@ -140,7 +145,7 @@ public interface ApplicationMenu {
         }
     }
 
-    private void chooseMissionOptionThree(FlightMission flightMission) {
+    private void chooseMissionOptionThree(FlightMission flightMission) throws InvalidStateException {
         while (true) {
             System.out.println("Your spaceship is: " + chooseSpaceshipOption(flightMission));
             System.out.println("Your crew is: " + flightMission.getAssignedCrew());
@@ -174,7 +179,7 @@ public interface ApplicationMenu {
             System.out.println("You have successfully sent a mission to " + flightMission.getName());
             System.out.println("Mission end date set for " + endMissionString);
             System.out.println("The mission will arrive on the planet " + flightMission.getName() + " in " +
-                    (10 * endMission.getSecond() - LocalDateTime.now().getSecond()) + " seconds");
+                    (2 * endMission.getSecond() - LocalDateTime.now().getSecond()) + " seconds");
             System.out.println("1. Upload mission information to file");
             System.out.println("0. Return to the previous menu");
             try {
@@ -195,31 +200,34 @@ public interface ApplicationMenu {
 
     private void uploadMissionInformation(FlightMission flightMission) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(new File("src/main/resources/output"), flightMission);
+        objectMapper.writeValue(new File("src/main/resources/output.json"), flightMission);
         LocalDateTime endMission = LocalDateTime.now().plusMinutes(2);
-
         while (true) {
             System.out.println("The mission will reach " + flightMission.getName() + " in " +
                     (10 * endMission.getSecond() - LocalDateTime.now().getSecond()) + " seconds");
             System.out.println("You have successfully uploaded the mission information to a file");
-            System.out.println("0. Return to the main menu");
+            System.out.println("0. Return to the previous menu");
+            System.out.println("10. exit");
             try {
                 int selectedNumber = Integer.parseInt(scanner.nextLine());
                 if (selectedNumber == 0) {
                     break;
                 }
-                if (selectedNumber == 1) {
-                    uploadMissionInformation(flightMission);
-                } else {
-                    System.out.println("\n" + "There is no such option, please choose from the offered options:" + "\n");
+                switch (selectedNumber) {
+                    case 1:
+                        uploadMissionInformation(flightMission);
+                        break;
+                    case 10:
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("\n" + "There is no such option, please choose from the offered options:" + "\n");
+                        break;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number from the ones below:" + "\n");
             }
         }
-        final Supplier<ApplicationContext> applicationContextSupplier = NassaContext::getInstance;
-        Application.afterContextInit(applicationContextSupplier::get);
-        System.exit(0);
     }
 
     private void createYourOwnMission() {
@@ -262,8 +270,13 @@ public interface ApplicationMenu {
                 }
                 if (selectedNumber == 2) {
                     System.out.println("Enter the distance");
-                    flightMission.setDistance(Long.parseLong(scanner.nextLine()));
-                    chooseMissionOption(flightMission);
+                    long distance = Long.parseLong(scanner.nextLine());
+                    if (distance > 945000L) {
+                        System.out.println("There are no ships with this flight range, select a distance up to 945 000");
+                    } else {
+                        flightMission.setDistance(distance);
+                        chooseMissionOption(flightMission);
+                    }
                 } else {
                     System.out.println("\n" + "There is no such option, please choose from the offered options:" + "\n");
                 }
@@ -271,8 +284,6 @@ public interface ApplicationMenu {
                 System.out.println("Please enter a number from the ones below:" + "\n");
             }
         }
-
     }
-
 
 }

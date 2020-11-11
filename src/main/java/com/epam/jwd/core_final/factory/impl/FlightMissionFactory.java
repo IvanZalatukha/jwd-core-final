@@ -6,7 +6,8 @@ import com.epam.jwd.core_final.factory.EntityFactory;
 public class FlightMissionFactory implements EntityFactory<FlightMission> {
 
     private static FlightMissionFactory instance;
-    Long id = 0L;
+    private static Long id = 0L;
+
     private FlightMissionFactory() {
     }
 

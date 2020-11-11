@@ -23,6 +23,7 @@ public class NassaContext implements ApplicationContext {
 
     private NassaContext() {
     }
+
     public static synchronized NassaContext getInstance() {
         if (instance == null) {
             instance = new NassaContext();
@@ -41,7 +42,7 @@ public class NassaContext implements ApplicationContext {
             return (Collection<T>) crewMembers;
         } else if (tClass.getName().equals(Spaceship.class.getName())) {
             return (Collection<T>) spaceships;
-        }else if (tClass.getName().equals(FlightMission.class.getName())) {
+        } else if (tClass.getName().equals(FlightMission.class.getName())) {
             return (Collection<T>) flightMissions;
         }
         return null;
@@ -49,45 +50,45 @@ public class NassaContext implements ApplicationContext {
 
     /**
      * You have to read input files, populate collections
+     *
      * @throws InvalidStateException
      */
     @Override
-    public void init() throws InvalidStateException {
+    public void init() {
         try {
             PropertyReaderUtil.loadProperties();
             populateCollections();
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        throw new InvalidStateException();
+
 
 
     }
 
-    private void populateCollections() throws  IOException {
+    private void populateCollections() throws IOException {
         ContextInputStrategy contextInputStrategy = new ContextInputStrategy();
         contextInputStrategy.setInputStrategy(new HorizontalInputStrategy());
 
-        List<String> crewMembersStringList = contextInputStrategy.executeStrategy("src/main/resources/input/crew");
-            for (String str: crewMembersStringList) {
-                crewMembers.add(CrewServiceImpl.getInstance().createCrewMember(str));
-            }
+        List<String> crewMembersStringList = contextInputStrategy.executeStrategy("src/main/resources/input/" + ApplicationProperties.getCrewFileName());
+        for (String str : crewMembersStringList) {
+            crewMembers.add(CrewServiceImpl.getInstance().createCrewMember(str));
+        }
 
         contextInputStrategy.setInputStrategy(new VerticalInputStrategy());
 
         List<String> spaceshipStringList = contextInputStrategy.executeStrategy("src/main/resources/input/spaceships");
-        for (String str: spaceshipStringList) {
+        for (String str : spaceshipStringList) {
             spaceships.add(SpaceshipsServiceImpl.getInstance().createSpaceship(str));
         }
 
         List<String> missionsStringList = contextInputStrategy.executeStrategy("src/main/resources/input/missions");
-        for (String str: missionsStringList) {
+        for (String str : missionsStringList) {
             flightMissions.add(MissionServiceImpl.getInstance().createMission(str));
         }
 
 
     }
-
 
 
 }

@@ -33,8 +33,8 @@ public enum Rank implements BaseEntity {
      * @throws UnknownEntityException if such id does not exist
      */
     public static Rank resolveRankById(int id) {
-        for (Rank rank: Rank.values()){
-            if (rank.id.equals((long)id)) {
+        for (Rank rank : Rank.values()) {
+            if (rank.id.equals((long) id)) {
                 return rank;
             }
         }
