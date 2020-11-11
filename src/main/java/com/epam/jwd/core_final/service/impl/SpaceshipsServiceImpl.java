@@ -35,25 +35,29 @@ public class SpaceshipsServiceImpl implements SpaceshipService {
     public Collection<Spaceship> findAllSpaceshipsByCriteria(Criteria<? extends Spaceship> criteria) {
         SpaceshipCriteria spaceshipCriteria = (SpaceshipCriteria) criteria;
         Collection<Spaceship> list = NassaContext.getInstance().retrieveBaseEntityList(Spaceship.class);
-        List<Spaceship> spaceshipList = list.stream().filter(s -> s.getFlightDistance() > spaceshipCriteria.getFlightDistance()).collect(Collectors.toList());
-
-        return spaceshipList;
+        return list.stream().filter(s -> s.getFlightDistance() > spaceshipCriteria.getFlightDistance()).collect(Collectors.toList());
     }
 
     @Override
     public Optional<Spaceship> findSpaceshipByCriteria(Criteria<? extends Spaceship> criteria) {
-        return Optional.empty();
+        SpaceshipCriteria spaceshipCriteria = (SpaceshipCriteria) criteria;
+        return Optional.of(NassaContext
+                .getInstance()
+                .retrieveBaseEntityList(Spaceship.class)
+                .stream().filter(s -> !s.getReadyForNextMissions())
+                .findAny()
+                .get());
     }
 
     @Override
     public Spaceship updateSpaceshipDetails(Spaceship spaceship) {
-        return null;
+        spaceship.setReadyForNextMissions(false);
+        return spaceship;
     }
 
     @Override
     public void assignSpaceshipOnMission(Spaceship spaceship, FlightMission mission) throws RuntimeException {
         mission.setAssignedSpaceShift(spaceship);
-
     }
 
     @Override

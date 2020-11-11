@@ -213,16 +213,10 @@ public interface ApplicationMenu {
                 if (selectedNumber == 0) {
                     break;
                 }
-                switch (selectedNumber) {
-                    case 1:
-                        uploadMissionInformation(flightMission);
-                        break;
-                    case 10:
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println("\n" + "There is no such option, please choose from the offered options:" + "\n");
-                        break;
+                if (selectedNumber == 10) {
+                    System.exit(0);
+                } else {
+                    System.out.println("\n" + "There is no such option, please choose from the offered options:" + "\n");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number from the ones below:" + "\n");
@@ -285,5 +279,5 @@ public interface ApplicationMenu {
             }
         }
     }
-
 }
+

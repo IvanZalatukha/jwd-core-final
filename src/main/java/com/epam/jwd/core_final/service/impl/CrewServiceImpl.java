@@ -45,7 +45,12 @@ public class CrewServiceImpl implements CrewService {
     public Optional<CrewMember> findCrewMemberByCriteria(Criteria<? extends CrewMember> criteria) {
         CrewMemberCriteria crewMemberCriteria = (CrewMemberCriteria) criteria;
 
-        return Optional.empty();
+        return Optional.of(NassaContext
+                .getInstance()
+                .retrieveBaseEntityList(CrewMember.class)
+                .stream().filter(CrewMember::getReadyForNextMissions)
+                .findAny()
+                .get());
     }
 
     @Override
@@ -56,7 +61,7 @@ public class CrewServiceImpl implements CrewService {
 
     @Override
     public void assignCrewMemberOnMission(List<CrewMember> crewMembers, FlightMission flightMission) throws RuntimeException {
-    flightMission.setAssignedCrew(crewMembers);
+        flightMission.setAssignedCrew(crewMembers);
     }
 
     @Override
