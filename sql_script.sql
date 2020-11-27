@@ -50,7 +50,7 @@ primary key (flight_mission_id, spaceship_id),
 foreign key (flight_mission_id) references flight_mission (flight_mission_id),
 foreign key (spaceship_id) references spaceship (spaceship_id));
 
-CREATE TABLE IF NOT EXISTS crew_members_assigned_to_a_mission (
+create table if not exists crew_members_assigned_to_a_mission (
     flight_mission_id int,
     crew_member_id int,
     primary key (flight_mission_id, crew_member_id),
